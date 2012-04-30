@@ -1,13 +1,17 @@
 <!doctype html>
 <html lang="en">
 	<head>
-	  <meta charset="utf-8" />
-	  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/cssreset/cssreset.css" />
-	  <!-- disable zooming -->
-	  <meta name="viewport" content="initial-scale=1.0, user-scalable=0" />
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/cssreset/cssreset.css" />
+		<!-- disable zooming -->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=0" />
 
 		<style media="screen">
-	  
+		
+			html{ background: #000; }
+		
+			.hide{ display: none; }
+
 			.container {
 			  width: 810px;
 			  height: 320px;
@@ -18,16 +22,13 @@
 			.scrollscape {
 			  width: 100%;
 			  height: 100%;
-			  background-color: red;
-			  -webkit-transform: perspective( 600 ) rotateY( 10deg );
 			}
-			
-	
 			
 			.scrollscape ul li{
 
 				float: left;
 				padding: 20px;
+				cursor: pointer;
 
 			}
 			
@@ -40,13 +41,20 @@
 				border: solid 1px #fff;
 
 			}
+			
+			.scrollscape ul li span:hover
+			{
+				
+				background: #fff;
+			
+			}
 
 		</style>
 
 	</head>
 	<body>
 
-	<section class="container">
+	<section class="container hide">
 		<div class="scrollscape">
 						
 			<ul>
@@ -72,20 +80,47 @@
 			
 				var sc = (function(){
 					
-					var $inst = $('.container');
-					var $window = $(window);
+					var $inst = $('.container').show();
+					var $scape = $('.scrollscape');
+					var $window = $(window);					
 					
+					var c = (function(){
+						
+						return {
+						
+							Y: function(){ return $window.height()/2 },
+							X: function(){ return $window.width()/2 }
+					
+						}
+					
+					})();
+										
 					var place = function(){
 					
 						$inst.css({
 						
-							top: ($window.height()/2)-($inst.height()/2),
-							left: ($window.width()/2)-($inst.width()/2)
+							top: c.Y() - ($inst.height()/2),
+							left: c.X() - ($inst.width()/2)
 						
 						})
 					}		
 					
+					$(window).resize(place).scroll(place);
+					
 					place();
+					
+					//////////////////////////////
+					
+					$window.mousemove(function(e){
+						
+						var degX = Math.round((c.X()-e.pageX)*0.1);
+						var degY = Math.round((c.Y()-e.pageY)*0.1);
+						
+						$scape.css( { 
+							"-webkit-transform": "perspective( 600 ) rotateX( " + degY + "deg ) rotateY( " + degX + "deg )"
+						} );
+						
+					})
 					
 				})();
 			
