@@ -36,13 +36,21 @@
 		  	
 			.scrollscape{
 				position: relative;
-				overflow: hidden;
 				text-align: center;
 			}
-			
-			.scrollscape ul
+						
+			.mask
 			{
 				margin-left: 75px;
+				margin-right: 75px;
+				height: 320px;
+				overflow: hidden;
+			}
+			
+			.scrollscape ul 
+			{
+				-webkit-transition: all 0.2s ease-in;
+				height: 320px;
 			
 			}
 			
@@ -96,11 +104,9 @@
 			
 			.arrow
 			{
+				cursor: pointer;
 				position: absolute;
-				width: 100px;
-				height: 100px;
-				background: red;
-				padding: 0px;
+				width: 75px;
 				height: 320px;
 				background: url(img/lft_w.png) no-repeat center;
 			}
@@ -116,21 +122,26 @@
 	<body>
 
 	<section class="container">
-		<div class="scrollscape">	
-			<ul>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>
-				<li><span></span></li>				
-			</ul>
+		<div class="scrollscape">
 			<div class="arrow lft"></div>
-			<div class="arrow rgt"></div>			
+			<div class="arrow rgt"></div>		
+			<div class="mask">
+				<ul>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>
+					<li><span></span></li>				
+				</ul>
+			</div>			
 		</div>
 	</section>
 	
@@ -147,10 +158,11 @@
 			
 				var sc = (function(){
 					
-					var $inst = $('.container'),
-						$scape = $('.scrollscape'),
+					var $inst 	= $('.container'),
+						$scape 	= $('.scrollscape'),
 						$window = $(window),
-						$arrows = $('.arrow');
+						$lft 	= $('.lft'),
+						$rgt 	= $('.rgt');
 					
 					var c = (function(){
 						
@@ -177,9 +189,28 @@
 					
 					///////////////////////////////////////////////////
 					
-					$arrows.click(function(){
-					
+					var inc = 164,
+						$ul = $scape.find('ul');
 						
+					$ul.css({ width: Math.ceil($scape.find('li').length/2)*inc });	
+					
+					var move = function(inc){
+						
+						console.debug($ul.css('margin-left'));
+					
+						$ul.css({ 'margin-left': parseFloat($ul.css('margin-left'))+inc })
+					
+					}
+					
+					$lft.click(function(){
+					
+						move(inc);
+						
+					});
+					
+					$rgt.click(function(){
+					
+						move(-inc);
 					
 					});
 					
