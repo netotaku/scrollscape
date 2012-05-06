@@ -9,20 +9,34 @@
 
 		<style media="screen">
 		
-			html{ background: #000; }
+			@import url(http://fonts.googleapis.com/css?family=VT323);
 		
-			.hide{ display: none; }
+			html {
+				font-family: 'VT323', cursive;
+				display:table; 
+				width: 100%;
+				height: 100%;
+				background: #000;
+				color: #fff;
+				overflow: hidden;
+			}
+			
+			body {
+				display:table-cell; 
+				vertical-align:middle;
+				width: 960px;
+			}
 
 			.container {
 			  width: 810px;
 			  height: 320px;
-			  margin: 0 auto 40px;
-			  position: absolute;
+			  margin: auto;
+
 			}
-		  
-			.scrollscape {
-			  width: 100%;
-			  height: 100%;
+		  	
+			.scrollscape{
+			  position: relative;
+			  overflow: hidden;			
 			}
 			
 			.scrollscape ul li{
@@ -40,14 +54,37 @@
 				width: 120px;
 				height: 120px;
 				border: solid 1px #fff;
+				-webkit-perspective: 1000;
+				-webkit-transform-style: preserve-3d;
+				-webkit-transform: scale(1);
+				-webkit-transition: all 0.2s ease-in;				
 
 			}
 			
-			.scrollscape ul li span:hover
+			.scrollscape ul li:hover span
 			{
 				
 				background: #fff;
+				-webkit-transform: scale(1.2);
+
+			}
 			
+			h1{ padding: 20px;}
+			
+			footer{
+			
+				position: fixed;
+				bottom: 0px;
+				background: #111;
+				width: 100%;
+			}
+			
+			footer a{
+				
+				display: block;
+				float: right;
+				padding: 20px;
+					
 			}
 
 		</style>
@@ -55,9 +92,8 @@
 	</head>
 	<body>
 
-	<section class="container hide">
-		<div class="scrollscape">
-						
+	<section class="container">
+		<div class="scrollscape">		
 			<ul>
 				<li><span></span></li>
 				<li><span></span></li>
@@ -70,9 +106,15 @@
 				<li><span></span></li>
 				<li><span></span></li>						
 			</ul>
-			
+				
 		</div>
 	</section>
+	
+	<footer>
+		<section>
+			<h1>3D CSS Scrollscape</h1>
+		<section>
+	</footer>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript">
@@ -81,7 +123,7 @@
 			
 				var sc = (function(){
 					
-					var $inst = $('.container').show();
+					var $inst = $('.container');
 					var $scape = $('.scrollscape');
 					var $window = $(window);					
 					
@@ -95,22 +137,6 @@
 						}
 					
 					})();
-										
-					var place = function(){
-					
-						$inst.css({
-						
-							top: c.Y() - ($inst.height()/2),
-							left: c.X() - ($inst.width()/2)
-						
-						})
-					}		
-					
-					$(window).resize(place).scroll(place);
-					
-					place();
-					
-					//////////////////////////////
 					
 					$window.mousemove(function(e){
 						
