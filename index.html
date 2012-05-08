@@ -209,9 +209,7 @@
 					}
 					
 					var scroll = function(inc){
-						
-						console.debug("called");
-						
+			
 						var inc = inc || 0,				
 							margin = parseFloat($ul.css('margin-left'))+inc;
 						
@@ -220,31 +218,25 @@
 						return margin;
 					
 					}
-					
-					var paginate = function(){
-						
-						//if(end()) console.debug("!");
-						
-						//$rgt.css({ opacity: end() ? 0.5 : 1 });
-						//$lft.css({ opacity: start() ? 0.5 : 1 });
-					
-					}
-					
+										
 					$lft.click(function(){
 					
 						if(!start()) scroll(inc);
-						
-						paginate();
-						
+
 					});
 					
 					$rgt.click(function(){
 					
 						if(!end()) scroll(-inc);
-						
-						paginate();
 					
 					});
+					
+					$scape.on('webkitTransitionEnd', function(e){
+					
+						$rgt.css({ opacity: end() ? 0.1 : 1 });
+						$lft.css({ opacity: start() ? 0.1 : 1 });
+											
+					})
 					
 				})();
 			
