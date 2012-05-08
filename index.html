@@ -189,28 +189,60 @@
 					
 					///////////////////////////////////////////////////
 					
-					var inc = 164,
-						$ul = $scape.find('ul');
+					var inc 	= 164,
+						$ul 	= $scape.find('ul'),
+						W 		= Math.ceil($scape.find('li').length/2)*inc,
+						limit 	= W-(inc*6);
 						
-					$ul.css({ width: Math.ceil($scape.find('li').length/2)*inc });	
+					$ul.css({ width: W });	
 					
-					var move = function(inc){
+					var end = function(){
 						
-						console.debug($ul.css('margin-left'));
+						return scroll() < -limit;
 					
-						$ul.css({ 'margin-left': parseFloat($ul.css('margin-left'))+inc })
+					}
+					
+					var start = function(){
+					
+						return scroll() > -inc;
+						
+					}
+					
+					var scroll = function(inc){
+						
+						console.debug("called");
+						
+						var inc = inc || 0,				
+							margin = parseFloat($ul.css('margin-left'))+inc;
+						
+						$ul.css({ 'margin-left': margin });
+												
+						return margin;
+					
+					}
+					
+					var paginate = function(){
+						
+						//if(end()) console.debug("!");
+						
+						//$rgt.css({ opacity: end() ? 0.5 : 1 });
+						//$lft.css({ opacity: start() ? 0.5 : 1 });
 					
 					}
 					
 					$lft.click(function(){
 					
-						move(inc);
+						if(!start()) scroll(inc);
+						
+						paginate();
 						
 					});
 					
 					$rgt.click(function(){
 					
-						move(-inc);
+						if(!end()) scroll(-inc);
+						
+						paginate();
 					
 					});
 					
