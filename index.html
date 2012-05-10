@@ -44,12 +44,19 @@
 				margin-left: 75px;
 				margin-right: 75px;
 				height: 320px;
+				position: relative;
 				overflow: hidden;
 			}
 			
 			.scrollscape ul 
 			{
-				-webkit-transition: all 0.2s ease-in;
+				
+				-webkit-transition: all 0.2s ease-in ;
+				-moz-transition: all 0.2s ease-in ;
+				-ms-transition: all 0.2s ease-in ;
+				-o-transition: all 0.2s ease-in ;
+				transition: all 0.2s ease-in ;
+
 				height: 320px;
 			
 			}
@@ -74,6 +81,21 @@
 				-webkit-transform: scale(1);
 				-webkit-transition: all 0.2s ease-in;				
 
+				-moz-perspective: 1000;
+				-moz-transform-style: preserve-3d;
+				-moz-transform: scale(1);
+				-moz-transition: all 0.2s ease-in;	
+
+				-ms-perspective: 1000;
+				-ms-transform-style: preserve-3d;
+				-ms-transform: scale(1);
+				-ms-transition: all 0.2s ease-in;	
+
+				perspective: 1000;
+				transform-style: preserve-3d;
+				transform: scale(1);
+				transition: all 0.2s ease-in;	
+
 			}
 			
 			.scrollscape ul li:hover span
@@ -81,25 +103,20 @@
 				
 				background: #fff;
 				-webkit-transform: scale(1.2);
+				-moz-transform: scale(1.2);
+				-ms-transform: scale(1.2);
+				transform: scale(1.2);
 
 			}
 			
 			h1{ padding: 20px;}
 			
-			footer{
+			.footer{
 			
 				position: fixed;
 				bottom: 0px;
 				background: #111;
 				width: 100%;
-			}
-			
-			footer a{
-				
-				display: block;
-				float: right;
-				padding: 20px;
-					
 			}
 			
 			.arrow
@@ -121,7 +138,7 @@
 	</head>
 	<body>
 
-	<section class="container">
+	<div class="container">
 		<div class="scrollscape">
 			<div class="arrow lft"></div>
 			<div class="arrow rgt"></div>		
@@ -143,18 +160,18 @@
 				</ul>
 			</div>			
 		</div>
-	</section>
+	</div>
 	
-	<footer>
-		<section>
-			<h1>3D CSS Scrollscape</h1>
-		<section>
-	</footer>
+	<div class="footer"><h1>3D CSS Scrollscape</h1></div>
 
+	<script type="text/javascript" src="browser.js"></script>
+	<script type="text/javascript" src="normalizer.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script type="text/javascript">
+	<script type="text/javascript">
+
+		$(function(){
 		
-			$(function(){
+			/////////////////////////////////////////////////	
 			
 				var sc = (function(){
 					
@@ -181,9 +198,7 @@
 							degX = Math.round((c.X()-e.pageX)*exp),
 							degY = Math.round((c.Y()-e.pageY)*exp);
 						
-						$scape.css({ 
-							"-webkit-transform": "perspective( 600 ) rotateX( " + degY + "deg ) rotateY( " + degX + "deg )"
-						});
+						$scape.css(n.property('transform'), "perspective( 600 ) rotateX( " + degY + "deg ) rotateY( " + degX + "deg )");
 						
 					});
 					
@@ -231,7 +246,7 @@
 					
 					});
 					
-					$scape.on('webkitTransitionEnd', function(e){
+					$scape.on(n.property('transitionEnd'), function(e){
 					
 						$rgt.css({ opacity: end() ? 0.1 : 1 });
 						$lft.css({ opacity: start() ? 0.1 : 1 });
