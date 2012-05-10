@@ -17,7 +17,7 @@
 					
 					Webkit: {
 						
-						transitionEnd: 'webkitAnimationEnd',
+						transitionEnd: 'webkitTransitionEnd',
 						transform: '-webkit-transform'
 
 					},
